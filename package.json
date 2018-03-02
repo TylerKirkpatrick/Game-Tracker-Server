@@ -1,0 +1,19 @@
+{
+  "name": "pubg-tracker-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TylerKirkpatrick/Game-Tracker-Server.git"
+  },
+  "author": "Tyler Kirkpatrick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TylerKirkpatrick/Game-Tracker-Server/issues"
+  },
+  "homepage": "https://github.com/TylerKirkpatrick/Game-Tracker-Server#readme"
+}
