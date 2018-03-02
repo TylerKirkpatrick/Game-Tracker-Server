@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/TylerKirkpatrick/Game-Tracker-Server/issues"
   },
-  "homepage": "https://github.com/TylerKirkpatrick/Game-Tracker-Server#readme"
+  "homepage": "https://github.com/TylerKirkpatrick/Game-Tracker-Server#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "pubg-api-redis": "^3.7.0",
+    "redis": "^2.8.0"
+  }
 }
