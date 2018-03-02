@@ -1,38 +1,60 @@
 const {PubgAPI, PubgAPIErrors, REGION, SEASON, MATCH} = require('pubg-api-redis');
-const apiKey = require('./config/apiKey.js'); 
+const apiKey = require('./config/apiKey.json');
+const testData = require('./test/test-data.json');
 
-const express = require('express')
-const app = express()
+console.log("APIKEY: ", apiKey.apiKey); 
 
-app.get('/', (req, res) => res.send('Hello World!'))
+const express = require('express');
+const app = express();
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
-
-// If no Redis configuration it wont be cached
-const api = new PubgAPI({
-    apikey: apiKey, //store in config...
-    redisConfig: {
-        host: '127.0.0.1',
-        port: 6379,
-        expiration: 300, // Optional - defaults to 300.
-    },
-});
- 
-api.getProfileByNickname('shroud')
-    .then((profile) => {
-        const data = profile.content;
-        const stats = profile.getStats({
-        region: REGION.ALL, // defaults to profile.content.selectedRegion
-        season: SEASON.EA2017pre3, // defaults to profile.content.defaultSeason
-        match: MATCH.SOLO // defaults to SOLO
-        });
-        console.log(stats);
-});
- 
-api.getAccountBySteamID('76561198084956266')
-    .then((account) => {
-        console.log(account);
+app.get('/', (req, res) => {
+    res.send("Got your response...");
 });
 
+app.listen(3000, () => {
+    console.log("Listening on port 3000");
+});
+
+if(apiKey.apiKey !== "") {
+    // If no Redis configuration it wont be cached
+    const api = new PubgAPI({
+        apikey: apiKey.apiKey, //store in config...
+        redisConfig: {
+            host: '127.0.0.1',
+            port: 6379,
+            expiration: 300, // Optional - defaults to 300.
+        },
+    });
+} 
+
+function getProfileByNickname(nickname) {
+    api.getProfileByNickname(nickname)
+        .then((profile) => {
+            const data = profile.content;
+            const stats = profile.getStats({
+                region: REGION.ALL, // defaults to profile.content.selectedRegion
+                season: SEASON.EA2017pre3, // defaults to profile.content.defaultSeason
+                match: MATCH.SOLO // defaults to SOLO
+            });
+            return stats;
+        },(error) => {
+            return error;
+        }
+    );
+}
+
+function getAccountBySteamID(steam_id) {
+    api.getAccountBySteamID(steam_id)
+        .then((account) => {
+            return account;
+        },(error) => {
+            return error;
+        }
+    );
+}
+
+function getTestData() {
+    return testData;
+}
 
  
